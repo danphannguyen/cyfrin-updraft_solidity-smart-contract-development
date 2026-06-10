@@ -2,8 +2,18 @@
 pragma solidity 0.8.18; // solidity versions
 
 contract SimpleStorage {
-    uint256 favoriteNumber; 
+    uint256 public favoriteNumber; 
+    // By Default it's an internal value if you don't specify anything
 
+    function store(uint256 _favoriteNumber) public {
+        favoriteNumber = _favoriteNumber;
+    }
+
+    // View function is used to read data from the blockchain (doesn't need a transaction) and disallow updating state
+    // Pure function is used to read data from the blockchain (same as View but disallow reading state)
+    function retrieve() public view returns (uint256) {
+        return favoriteNumber;
+    }
 }
 
 // ========= DOCS ==========
@@ -31,3 +41,13 @@ contract SimpleStorage {
     // bytes32 favoriteBytes32 = "cat"; 
         // bytes32 is a fixed size array of bytes
         // Default value : ""
+
+// ========= GAS ==========
+
+// GAS = How much gas are we sending (TC + EC)
+
+// Transaction Cost 
+// The real cost of the transaction
+
+// Execution Cost 
+// Only apply when a view or pure fonction is call by another function
