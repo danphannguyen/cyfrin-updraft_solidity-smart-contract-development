@@ -34,6 +34,9 @@ contract SimpleStorage {
         return myFavoriteNumber;
     }
 
+    // calldata, memory, storage
+    // calldata & memory are temporary stored within the function (but memory can be update, not calldata)
+    // storage is for global function that live out of a function
     function addPerson(string memory _name, uint256 _favoriteNumber) public {
         listOfPeople.push( Person(_favoriteNumber, _name) );
     }
