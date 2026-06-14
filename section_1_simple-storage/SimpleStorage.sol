@@ -22,7 +22,8 @@ contract SimpleStorage {
         // Person public mariah = Person({favoriteNumber: 29, name: "Mariah"});
         // Person public john = Person({favoriteNumber: 67, name: "John"});
 
-
+        // link name to their favorite number, exemple : chelsea -> 123
+        mapping(string => uint256) public nameToFavoriteNumber;
 
     function store(uint256 _favoriteNumber) public {
         myFavoriteNumber = _favoriteNumber;
@@ -39,6 +40,7 @@ contract SimpleStorage {
     // storage is for global function that live out of a function
     function addPerson(string memory _name, uint256 _favoriteNumber) public {
         listOfPeople.push( Person(_favoriteNumber, _name) );
+        nameToFavoriteNumber[_name] = _favoriteNumber;
     }
 }
 
