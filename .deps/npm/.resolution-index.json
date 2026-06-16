@@ -6,5 +6,13 @@
         "file": "section_1_simple-storage/SimpleStorage.sol"
       }
     }
+  },
+  "section_2_storage-factory/StorageFactory.sol": {
+    "__sources__": {
+      "section_2_storage-factory/StorageFactory.sol": {
+        "content": "// SPDX-License-Identifier: MIT\npragma solidity 0.8.18;\n\n\ncontract SimpleStorage {\n    uint256 myFavoriteNumber; \n\n    struct Person{\n        uint256 favoriteNumber;\n        string name;\n    }\n\n    Person[] public listOfPeople;\n\n    mapping(string => uint256) public nameToFavoriteNumber;\n\n    function store(uint256 _favoriteNumber) public {\n        myFavoriteNumber = _favoriteNumber;\n    }\n\n    function retrieve() public view returns (uint256) {\n        return myFavoriteNumber;\n    }\n\n    function addPerson(string memory _name, uint256 _favoriteNumber) public {\n        listOfPeople.push( Person(_favoriteNumber, _name) );\n        nameToFavoriteNumber[_name] = _favoriteNumber;\n    }\n}\n\ncontract StorageFactory {\n\n    SimpleStorage public simpleStorage;\n\n    function createSimpleStorageContract() public {\n        simpleStorage = new SimpleStorage();\n    }\n\n}",
+        "file": "section_2_storage-factory/StorageFactory.sol"
+      }
+    }
   }
 }
