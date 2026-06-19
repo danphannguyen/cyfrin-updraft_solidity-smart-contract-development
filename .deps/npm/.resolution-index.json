@@ -19,5 +19,18 @@
         "file": "section_2_storage-factory/SimpleStorage.sol"
       }
     }
+  },
+  "section_2_storage-factory/AddFiveStorage.sol": {
+    "./SimpleStorage.sol": "section_2_storage-factory/SimpleStorage.sol",
+    "__sources__": {
+      "section_2_storage-factory/AddFiveStorage.sol": {
+        "content": "// SPDX-License-Identifier: MIT\npragma solidity 0.8.18;\n\n// We want to make this contract a child of SImpleStorage contact\nimport { SimpleStorage } from \"./SimpleStorage.sol\";\n\n// in our case \"is\" = \"extends\"\ncontract AddFiveStorage is SimpleStorage {\n\n    // We want to overrides our store function to add +5 \n    // Keywords are : \"virtual\", \"override\"\n    // add \"virtual\" to the parent function and \"override\" to the child function\n    function store(uint256 _newNumber) public override {\n        myFavoriteNumber = _newNumber + 5;\n    }\n}",
+        "file": "section_2_storage-factory/AddFiveStorage.sol"
+      },
+      "section_2_storage-factory/SimpleStorage.sol": {
+        "content": "// SPDX-License-Identifier: MIT\npragma solidity 0.8.18; // solidity versions\n\ncontract SimpleStorage {\n    uint256 myFavoriteNumber; \n    // By Default it's an internal value if you don't specify anything\n\n    struct Person{\n        uint256 favoriteNumber;\n        string name;\n    }\n\n    Person[] public listOfPeople;\n\n    // link name to their favorite number, exemple : chelsea -> 123\n    mapping(string => uint256) public nameToFavoriteNumber;\n\n    function store(uint256 _favoriteNumber) public virtual {\n        myFavoriteNumber = _favoriteNumber;\n    }\n\n    function retrieve() public view returns (uint256) {\n        return myFavoriteNumber;\n    }\n\n    function addPerson(string memory _name, uint256 _favoriteNumber) public {\n        listOfPeople.push( Person(_favoriteNumber, _name) );\n        nameToFavoriteNumber[_name] = _favoriteNumber;\n    }\n}\n\ncontract SimpleStorage2 {}\n\ncontract SimpleStorage3 {}\n\ncontract SimpleStorage4 {}",
+        "file": "section_2_storage-factory/SimpleStorage.sol"
+      }
+    }
   }
 }
