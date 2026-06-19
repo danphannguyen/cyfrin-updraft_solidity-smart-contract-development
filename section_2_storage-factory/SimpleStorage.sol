@@ -44,38 +44,8 @@ contract SimpleStorage {
     }
 }
 
-// ========= DOCS ==========
+contract SimpleStorage2 {}
 
-// Basic Types: boolean, uint, int, address, bytes
-    // bool hasFavoriteNumber = true;
-        // Default Value : False
+contract SimpleStorage3 {}
 
-    // string favoriteNumberInText = "Eighty Eight"; 
-        // string are bytes object specifically for text
-        // Default Value : ""
-
-    // uint256 favoriteNumberUInt = 88; 
-        // uint256 = uint (it helps define the memory space needed)
-        // Default Value : 0
-
-    // int256 favoriteNumberInt = -88; 
-        // int vs uint (int can be negative)
-        // Default Value : 0
-
-    // address myAddress = 0x3636363636363636363636363636363636363636; 
-        // address can be a wallet address
-        // Default Value : 0x0000000000000000000000000000000000000000
-
-    // bytes32 favoriteBytes32 = "cat"; 
-        // bytes32 is a fixed size array of bytes
-        // Default value : ""
-
-// ========= GAS ==========
-
-// GAS = How much gas are we sending (TC + EC)
-
-// Transaction Cost 
-// The real cost of the transaction
-
-// Execution Cost 
-// Only apply when a view or pure fonction is call by another function
+contract SimpleStorage4 {}

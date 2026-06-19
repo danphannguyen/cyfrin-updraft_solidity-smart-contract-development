@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.18; // solidity versions
 
-contract SimpleStorage {
+contract SimpleStorageS1 {
     uint256 myFavoriteNumber; 
     // By Default it's an internal value if you don't specify anything
 
