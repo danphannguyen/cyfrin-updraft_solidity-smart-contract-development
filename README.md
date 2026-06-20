@@ -22,3 +22,14 @@ Exemple :
     Fichier 1 : 0.8.18
     Fichier 2 : 0.7.12
     Version commune : Impossible (Solidity prendra 0.7.12 mais cela ne pourra pas fonctionner)
+
+## Les trasactions failed consomment du gas
+
+## Champs d'une transaction
+- Nonce : tx count for the account
+- Gas Price : price per unit of gas (in wei)
+- to address that the tx is sent to
+- Value : amount of wei to send 
+- Data : what to send to the To address
+- v, r, s: components of tx signature
+
