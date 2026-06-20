@@ -47,6 +47,7 @@ Ces nodes sont rémunéré par les GAS fee
 Un système de réputation à été mis en place pour bannier/punir les nodes potentiellement malveillant
 
 **NB : Pour tester les orcales j'ai du basculer sur Brave car MetaMask ne fonctionne pas sur arc**
+Faucet : https://cloud.google.com/application/web3/faucet/ethereum/sepolia
 
 ## Chainlink VRF (Verifiable Random Function)
 Docs : https://docs.chain.link/vrf
