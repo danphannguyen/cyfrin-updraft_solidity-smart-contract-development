@@ -33,3 +33,32 @@ Exemple :
 - Data : what to send to the To address
 - v, r, s: components of tx signature
 
+## Chainlink Oracles
+Docs : https://docs.chain.link/docs/get-the-latest-price
+
+Les oracles permettent de récupérer des données du monde réel. 
+On ne peut pas utiliser un serveur centealisé ou une API qui introduirait un "single point of failure" ce qui casserait totalement l'essence de la blockchain
+
+Un oracle est donc un ensemble de nodes décentralisés a qui on va poser une question.
+Chacun des nodes va répondre, et un node va se charger d'aggréger toutes les données et signatures pour transmettre une réponse
+Exemple : https://data.chain.link
+
+Ces nodes sont rémunéré par les GAS fee
+Un système de réputation à été mis en place pour bannier/punir les nodes potentiellement malveillant
+
+**NB : Pour tester les orcales j'ai du basculer sur Brave car MetaMask ne fonctionne pas sur arc**
+
+## Chainlink VRF (Verifiable Random Function)
+Docs : https://docs.chain.link/vrf
+
+Permet de récupérer/générer de la vraie "randomness" car sur la blockchain cette randomness est souvent simulé et donc prévisible.
+Cela la rend donc vulnérable
+
+## Chainlink Keepers / Chainlink Automations
+Docs : https://automation.chain.link/
+
+## E2E Reliability is the promise of smart contracts (Chainlink functions)
+Docs : https://docs.chain.link/chainlink-functions
+
+
+
