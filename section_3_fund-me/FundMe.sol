@@ -12,6 +12,9 @@ contract FundMe {
     // uint256 public myValue = 1;
     uint256 public minimumUsd = 5e18;
 
+    address[] public funders;
+    mapping (address => uint256 amountFunded) public addressToAmountFunded;
+
     // "payable" keyword 
     function fund() public payable{
         // Allow users to send $
@@ -21,9 +24,11 @@ contract FundMe {
 
         // We need to use Oracles because msg.value is in ETH/GWei/Wei and minimumUsd is in USD
         require(getConversionRate(msg.value) > minimumUsd, "didn't sed enough ETH"); // 1e18 = 1 ETH = 1 000 000 000 000 000 000 Wei = 1 * 10 ** 18
+        
+        // Adding the sender to the funders list
+        funders.push(msg.sender);
 
-        // What is a revert
-        // Undo any actions that have been done, and send the remaining gas back
+        addressToAmountFunded[msg.sender] += msg.value;
     }
 
     // function withdraw() public {}
