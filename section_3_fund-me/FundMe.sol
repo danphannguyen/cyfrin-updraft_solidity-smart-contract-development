@@ -10,7 +10,7 @@ import {AggregatorV3Interface} from "@chainlink/contracts@1.5.0/src/v0.8/shared/
 contract FundMe {
 
     // uint256 public myValue = 1;
-    uint256 public minimumUsd = 5;
+    uint256 public minimumUsd = 5e18;
 
     // "payable" keyword 
     function fund() public payable{
@@ -20,7 +20,7 @@ contract FundMe {
         // myValue = myValue + 2;
 
         // We need to use Oracles because msg.value is in ETH/GWei/Wei and minimumUsd is in USD
-        require(msg.value > minimumUsd, "didn't sed enough ETH"); // 1e18 = 1 ETH = 1 000 000 000 000 000 000 Wei = 1 * 10 ** 18
+        require(getConversionRate(msg.value) > minimumUsd, "didn't sed enough ETH"); // 1e18 = 1 ETH = 1 000 000 000 000 000 000 Wei = 1 * 10 ** 18
 
         // What is a revert
         // Undo any actions that have been done, and send the remaining gas back
@@ -45,7 +45,13 @@ contract FundMe {
         // Multiply by 1e10 to get 18 decimals in total and convert in uint256.
         return uint256(price * 1e10);
     }
-        function getCOnversionRate() public {}
+        function getConversionRate(uint256 ethAmount) public view returns(uint256) {
+            uint256 ethPrice = getPrice();
+
+            // It always better to multiply first and divid after, to avoid having "1 / 2 = 0"
+            uint256 ethAmountInUSD = (ethPrice * ethAmount) / 1e18;
+            return ethAmountInUSD;
+        }
     }
 
 // Failed transaction will spend gas
