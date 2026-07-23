@@ -36,6 +36,25 @@ contract FundMe {
             address funder = funders[funderIndex];
             addressToAmountFunded[funder] = 0;
         }
+
+        // reset the array
+        funders = new address[](0);
+
+        // withdraw the funds
+            // msg.sender = address type
+            // payable(msg.sender) = payable address
+
+            // transfer (2300 gas, throws error, if fail it would automatically revert)
+            // payable(msg.sender).transfer(address(this).balance);
+
+            // send (2300 gas, returns bool, if fail -> need "require()" to be reverted)
+            // bool sendSuccess = payable(msg.sender).send(address(this).balance);
+            // require(sendSuccess, "Send failed");
+
+            // call (forward all gas or set gas, returns bool, if fail -> need "require()" to be reverted)
+            // (bool callSuccess, bytes memory dataReturned)
+            (bool callSuccess, ) = payable(msg.sender).call{value: address(this).balance}("");
+            require(callSuccess, "Call failed");
     }   
 }
 
