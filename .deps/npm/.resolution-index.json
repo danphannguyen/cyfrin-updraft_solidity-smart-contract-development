@@ -46,6 +46,14 @@
       }
     }
   },
+  "section_3_fund-me/SafeMathTester.sol": {
+    "__sources__": {
+      "section_3_fund-me/SafeMathTester.sol": {
+        "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.6.0;\n\ncontract SafeMathTester {\n    uint8 public bigNumber = 255; // unchecked\n\n    // Before solidity 8.X.X, if go beyond the limit of a type we go back to the lowest value\n    // uint8 : max = 255, 255+1 = 0 \n    // That's why we use SafeMath who check if we can go beyond before adding\n    // In Solidity 8.X.X, you can still do this by using \"unchecked\" key word\n    function add() public {\n        bigNumber = bigNumber + 1;\n        // unchecked {bigNumber = bigNumber +1;}\n    }\n}",
+        "file": "section_3_fund-me/SafeMathTester.sol"
+      }
+    }
+  },
   "section_3_fund-me/PriceConverter.sol": {
     "@chainlink/contracts@1.5.0/src/v0.8/shared/interfaces/AggregatorV3Interface.sol": ".deps/npm/@chainlink/contracts@1.5.0/src/v0.8/shared/interfaces/AggregatorV3Interface.sol"
   },
@@ -53,7 +61,7 @@
     "./PriceConverter.sol": "section_3_fund-me/PriceConverter.sol",
     "__sources__": {
       "section_3_fund-me/FundMe.sol": {
-        "content": "// Get funds from users\n// Withdraw funds\n// Set a minimum funding value in USD\n\n// SPDX-License-Identifier: MIT\npragma solidity 0.8.18;\n\nimport {PriceConverter} from \"./PriceConverter.sol\";\n\ncontract FundMe {\n    // Give access to all uint256 type to the function inside PriceConverter\n    using PriceConverter for uint256;\n\n    // uint256 public myValue = 1;\n    uint256 public minimumUsd = 5e18;\n\n    address[] public funders;\n    mapping (address => uint256 amountFunded) public addressToAmountFunded;\n\n    // \"payable\" keyword \n    function fund() public payable{\n        \n\n        // We need to use Oracles because msg.value is in ETH/GWei/Wei and minimumUsd is in USD\n        require(msg.value.getConversionRate() >= minimumUsd, \"didn't sed enough ETH\"); // 1e18 = 1 ETH = 1 000 000 000 000 000 000 Wei = 1 * 10 ** 18\n        \n        // Adding the sender to the funders list\n        funders.push(msg.sender);\n\n        addressToAmountFunded[msg.sender] += msg.value;\n    }\n\n    // function withdraw() public {}   \n}\n\n// Failed transaction will spend gas",
+        "content": "// Get funds from users\n// Withdraw funds\n// Set a minimum funding value in USD\n\n// SPDX-License-Identifier: MIT\npragma solidity 0.8.18;\n\nimport {PriceConverter} from \"./PriceConverter.sol\";\n\ncontract FundMe {\n    // Give access to all uint256 type to the function inside PriceConverter\n    using PriceConverter for uint256;\n\n    // uint256 public myValue = 1;\n    uint256 public minimumUsd = 5e18;\n\n    address[] public funders;\n    mapping (address => uint256 amountFunded) public addressToAmountFunded;\n\n    // \"payable\" keyword \n    function fund() public payable{\n        \n\n        // We need to use Oracles because msg.value is in ETH/GWei/Wei and minimumUsd is in USD\n        require(msg.value.getConversionRate() >= minimumUsd, \"didn't sed enough ETH\"); // 1e18 = 1 ETH = 1 000 000 000 000 000 000 Wei = 1 * 10 ** 18\n        \n        // Adding the sender to the funders list\n        funders.push(msg.sender);\n\n        addressToAmountFunded[msg.sender] += msg.value;\n    }\n\n    function withdraw() public {\n        //for(starting index, ending index, step amout)\n        for(uint256 funderIndex = 0; funderIndex < funders.length; funderIndex++){\n            address funder = funders[funderIndex];\n            addressToAmountFunded[funder] = 0;\n        }\n    }   \n}\n\n// Failed transaction will spend gas",
         "file": "section_3_fund-me/FundMe.sol"
       },
       "section_3_fund-me/PriceConverter.sol": {
@@ -63,14 +71,6 @@
       "@chainlink/contracts@1.5.0/src/v0.8/shared/interfaces/AggregatorV3Interface.sol": {
         "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\n// solhint-disable-next-line interface-starts-with-i\ninterface AggregatorV3Interface {\n  function decimals() external view returns (uint8);\n\n  function description() external view returns (string memory);\n\n  function version() external view returns (uint256);\n\n  function getRoundData(\n    uint80 _roundId\n  ) external view returns (uint80 roundId, int256 answer, uint256 startedAt, uint256 updatedAt, uint80 answeredInRound);\n\n  function latestRoundData()\n    external\n    view\n    returns (uint80 roundId, int256 answer, uint256 startedAt, uint256 updatedAt, uint80 answeredInRound);\n}\n",
         "file": "@chainlink/contracts@1.5.0/src/v0.8/shared/interfaces/AggregatorV3Interface.sol"
-      }
-    }
-  },
-  "section_3_fund-me/SafeMathTester.sol": {
-    "__sources__": {
-      "section_3_fund-me/SafeMathTester.sol": {
-        "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.6.0;\n\ncontract SafeMathTester {\n    uint8 public bigNumber = 255; // unchecked\n\n    // Before solidity 8.X.X, if go beyond the limit of a type we go back to the lowest value\n    // uint8 : max = 255, 255+1 = 0 \n    // That's why we use SafeMath who check if we can go beyond before adding\n    // In Solidity 8.X.X, you can still do this by using \"unchecked\" key word\n    function add() public {\n        bigNumber = bigNumber + 1;\n        // unchecked {bigNumber = bigNumber +1;}\n    }\n}",
-        "file": "section_3_fund-me/SafeMathTester.sol"
       }
     }
   }

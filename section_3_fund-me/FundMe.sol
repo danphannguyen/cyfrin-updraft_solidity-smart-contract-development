@@ -30,7 +30,13 @@ contract FundMe {
         addressToAmountFunded[msg.sender] += msg.value;
     }
 
-    // function withdraw() public {}   
+    function withdraw() public {
+        //for(starting index, ending index, step amout)
+        for(uint256 funderIndex = 0; funderIndex < funders.length; funderIndex++){
+            address funder = funders[funderIndex];
+            addressToAmountFunded[funder] = 0;
+        }
+    }   
 }
 
 // Failed transaction will spend gas
