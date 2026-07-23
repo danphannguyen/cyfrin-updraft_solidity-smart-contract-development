@@ -65,5 +65,13 @@
         "file": "@chainlink/contracts@1.5.0/src/v0.8/shared/interfaces/AggregatorV3Interface.sol"
       }
     }
+  },
+  "section_3_fund-me/SafeMathTester.sol": {
+    "__sources__": {
+      "section_3_fund-me/SafeMathTester.sol": {
+        "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.6.0;\n\ncontract SafeMathTester {\n    uint8 public bigNumber = 255; // unchecked\n\n    // Before solidity 8.X.X, if go beyond the limit of a type we go back to the lowest value\n    // uint8 : max = 255, 255+1 = 0 \n    // That's why we use SafeMath who check if we can go beyond before adding\n    // In Solidity 8.X.X, you can still do this by using \"unchecked\" key word\n    function add() public {\n        bigNumber = bigNumber + 1;\n        // unchecked {bigNumber = bigNumber +1;}\n    }\n}",
+        "file": "section_3_fund-me/SafeMathTester.sol"
+      }
+    }
   }
 }
