@@ -37,8 +37,8 @@ contract FundMe {
         addressToAmountFunded[msg.sender] += msg.value;
     }
 
-    function withdraw() public {
-        require(msg.sender == owner, "You must be the owner");
+    function withdraw() public onlyOwner {
+        
 
         //for(starting index, ending index, step amout)
         for(uint256 funderIndex = 0; funderIndex < funders.length; funderIndex++){
@@ -65,6 +65,14 @@ contract FundMe {
             (bool callSuccess, ) = payable(msg.sender).call{value: address(this).balance}("");
             require(callSuccess, "Call failed");
     }   
+
+    modifier onlyOwner() {
+        // _; set when the function is executed
+        // If we place it here, first we will execute withdraw THEN onlyOwner logic
+        require(msg.sender == owner, "You must be the owner");
+        // We we place it here, it will execute onlyOwner THEN withdraw
+        _;      
+    }
 }
 
 // Failed transaction will spend gas
