@@ -12,24 +12,24 @@ contract FundMe {
     using PriceConverter for uint256;
 
     // uint256 public myValue = 1;
-    uint256 public minimumUsd = 5e18;
+    uint256 public constant MINIMUM_USD = 5e18;
 
     address[] public funders;
     mapping (address => uint256 amountFunded) public addressToAmountFunded;
 
 
-    address public owner;
+    address public i_owner;
 
     constructor() {
-        owner = msg.sender;
+        i_owner = msg.sender;
     }
 
     // "payable" keyword 
     function fund() public payable{
         
 
-        // We need to use Oracles because msg.value is in ETH/GWei/Wei and minimumUsd is in USD
-        require(msg.value.getConversionRate() >= minimumUsd, "didn't sed enough ETH"); // 1e18 = 1 ETH = 1 000 000 000 000 000 000 Wei = 1 * 10 ** 18
+        // We need to use Oracles because msg.value is in ETH/GWei/Wei and MINIMUM_USD is in USD
+        require(msg.value.getConversionRate() >= MINIMUM_USD, "didn't sed enough ETH"); // 1e18 = 1 ETH = 1 000 000 000 000 000 000 Wei = 1 * 10 ** 18
         
         // Adding the sender to the funders list
         funders.push(msg.sender);
@@ -69,10 +69,18 @@ contract FundMe {
     modifier onlyOwner() {
         // _; set when the function is executed
         // If we place it here, first we will execute withdraw THEN onlyOwner logic
-        require(msg.sender == owner, "You must be the owner");
+        require(msg.sender == i_owner, "You must be the owner");
         // We we place it here, it will execute onlyOwner THEN withdraw
         _;      
     }
 }
 
 // Failed transaction will spend gas
+
+// Tips to brign down gas fee
+// 1) 
+//      Use Constant 
+//          Consensus naming : full caps with _ (MINIMUM_USD)
+//      Or Immutability 
+//          (use when not set on the same line they declare, exemple constructor)
+//          Consensus naming : low caps with i_ before (i_owner)
