@@ -7,6 +7,8 @@ pragma solidity 0.8.18;
 
 import {PriceConverter} from "./PriceConverter.sol";
 
+error NotOwner();
+
 contract FundMe {
     // Give access to all uint256 type to the function inside PriceConverter
     using PriceConverter for uint256;
@@ -69,8 +71,11 @@ contract FundMe {
     modifier onlyOwner() {
         // _; set when the function is executed
         // If we place it here, first we will execute withdraw THEN onlyOwner logic
-        require(msg.sender == i_owner, "You must be the owner");
+        //require(msg.sender == i_owner, "You must be the owner");
         // We we place it here, it will execute onlyOwner THEN withdraw
+
+        if(msg.sender != i_owner) { revert NotOwner(); }
+
         _;      
     }
 }
@@ -84,3 +89,5 @@ contract FundMe {
 //      Or Immutability 
 //          (use when not set on the same line they declare, exemple constructor)
 //          Consensus naming : low caps with i_ before (i_owner)
+
+// 2) Use custom error instead of require() (like NotOwner error)
